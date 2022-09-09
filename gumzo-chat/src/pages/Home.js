@@ -10,9 +10,20 @@ function Home () {
     var ws
 
     if (!ws){
-        var ws = new WebSocket('ws://localhost:5000/');
+        ws = new WebSocket('ws://localhost:5000/');
     }
     
+    function deleteMessage(id){
+        fetch(`http://localhost:5000/messages/${id}`,{
+        method: "DELETE",
+        })
+        .then(r => r.json())
+        .then(() => {
+        const filtered = messages.filter((message) => message.id !== id)
+            setMessages(filtered)
+        })
+    }
+
 
     useEffect(() => {
         fetch('http://localhost:5000/messages')
@@ -26,18 +37,18 @@ function Home () {
         .then(data => setUsers(data))
     }, []);
 
-    useEffect(() => {
+
         ws.onmessage = function(message) {
             var data = JSON.parse(message.data);
             console.log(data)
             setMessages(oldmessages => [...oldmessages, data])
         };
          
-    });
 
-    const handlePosting = (data) => {
-        setMessages([...messages, data])
-        ws.send(JSON.stringify({ handle: data.id, text: data.user }));
+
+    const handlePosting = (body) => {
+        setMessages([...messages, {id:1, body:body}])
+        ws.send(JSON.stringify({ handle: 1, text: body}));
     }
 
     return (
@@ -47,7 +58,7 @@ function Home () {
                 <h2>Say something</h2>
             </div>   
             <div className="flex max-w-7xl mx-auto">
-                <ChatBox messages={messages} users={users} handlePosting={handlePosting} />
+                <ChatBox messages={messages} users={users} handlePosting={handlePosting} deleteMessage={deleteMessage} />
                 <ChatMenu />
             </div> 
       </div>

@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-function ChatBox ({messages, users, handlePosting}) {
+function ChatBox ({messages, users, handlePosting, deleteMessage}) {
     const [body, setBody] = useState('')
 
     const handleChange = (e) => {
@@ -20,18 +20,18 @@ function ChatBox ({messages, users, handlePosting}) {
         })
         .then(r => r.json())
         .then(data => {
-            handlePosting(data)
+            handlePosting(body)
         })
     }
 
     if (users){
 
         return (
-            <div className="max-w-7xl mx-auto border-2 w-1/2 h-96 flex flex-col justify-between">
+            <div className="max-w-7xl mx-auto border-2 w-1/2 h-5/6 flex flex-col justify-between p-4 chat-box">
                 <p>Chat box</p>
                 <div>
                     {messages.map((message) => (
-                        <p key={message.id}>{message.body}</p>
+                        <p key={message.id} onClick={() => deleteMessage(message.id)}>{message.body}</p>
                     ))}
                 </div>
                 <div className="flex">
