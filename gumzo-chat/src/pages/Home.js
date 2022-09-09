@@ -5,12 +5,40 @@ import ChatMenu from '../components/ChatMenu';
 
 function Home () {
     const [messages, setMessages] = useState([])
+    const [users, setUsers] = useState([])
+
+    var ws
+
+    if (!ws){
+        var ws = new WebSocket('ws://localhost:5000/');
+    }
+    
 
     useEffect(() => {
-        fetch('http://localhost:9292/messages')
+        fetch('http://localhost:5000/messages')
         .then(r => r.json())
         .then(data => setMessages(data))
-      }, []);
+    }, []);
+
+    useEffect(() => {
+        fetch('http://localhost:5000/users')
+        .then(r => r.json())
+        .then(data => setUsers(data))
+    }, []);
+
+    useEffect(() => {
+        ws.onmessage = function(message) {
+            var data = JSON.parse(message.data);
+            console.log(data)
+            setMessages(oldmessages => [...oldmessages, data])
+        };
+         
+    });
+
+    const handlePosting = (data) => {
+        setMessages([...messages, data])
+        ws.send(JSON.stringify({ handle: data.id, text: data.user }));
+    }
 
     return (
         <div>
@@ -19,7 +47,7 @@ function Home () {
                 <h2>Say something</h2>
             </div>   
             <div className="flex max-w-7xl mx-auto">
-                <ChatBox messages={messages} />
+                <ChatBox messages={messages} users={users} handlePosting={handlePosting} />
                 <ChatMenu />
             </div> 
       </div>
