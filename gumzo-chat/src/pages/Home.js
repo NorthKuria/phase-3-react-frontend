@@ -20,7 +20,6 @@ function Home () {
     }
     
     const handlePosting = (body) => {
-        setMessages([...messages, {id:1, body:body}])
         window.ws.send(JSON.stringify({ handle: 1, text: body}));
     }
 
