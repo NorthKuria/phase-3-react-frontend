@@ -9,9 +9,7 @@ function Home () {
     const [connection, setConnection] = useState(false)
 
     if (!connection){
-        var scheme = "<%= @scheme %>";
-        var uri = scheme + window.document.location.host + "/";
-        window.ws = new WebSocket(uri);
+        window.ws = new WebSocket("ws://lit-savannah-30118.herokuapp.com/");
         setConnection(true)
 
         window.ws.onmessage = function(message) {
