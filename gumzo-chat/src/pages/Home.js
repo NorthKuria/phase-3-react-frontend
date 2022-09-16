@@ -6,13 +6,25 @@ import ChatMenu from '../components/ChatMenu';
 function Home () {
     const [messages, setMessages] = useState([])
     const [users, setUsers] = useState([])
+    const [connection, setConnection] = useState(false)
 
-    var ws
+    if (!connection){
+        window.ws = new WebSocket('ws://localhost:5000/');
+        setConnection(true)
 
-    if (!ws){
-        ws = new WebSocket('ws://localhost:5000/');
+        window.ws.onmessage = function(message) {
+            var data = JSON.parse(message.data);
+            console.log(data)
+            setMessages(current => [...current, {id: data.handle, body: data.text}]);
+        };
     }
     
+    const handlePosting = (body) => {
+        setMessages([...messages, {id:1, body:body}])
+        window.ws.send(JSON.stringify({ handle: 1, text: body}));
+    }
+
+
     function deleteMessage(id){
         fetch(`http://localhost:5000/messages/${id}`,{
         method: "DELETE",
@@ -35,21 +47,8 @@ function Home () {
         fetch('http://localhost:5000/users')
         .then(r => r.json())
         .then(data => setUsers(data))
-    }, []);
+    }, []);  
 
-
-        ws.onmessage = function(message) {
-            var data = JSON.parse(message.data);
-            console.log(data)
-            setMessages(oldmessages => [...oldmessages, data])
-        };
-         
-
-
-    const handlePosting = (body) => {
-        setMessages([...messages, {id:1, body:body}])
-        ws.send(JSON.stringify({ handle: 1, text: body}));
-    }
 
     return (
         <div>
