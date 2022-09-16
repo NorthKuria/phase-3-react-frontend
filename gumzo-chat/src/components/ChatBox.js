@@ -20,7 +20,7 @@ function ChatBox ({messages, users, handlePosting, deleteMessage}) {
         })
         .then(r => r.json())
         .then(data => {
-            handlePosting(body)
+            handlePosting(data)
         })
     }
 

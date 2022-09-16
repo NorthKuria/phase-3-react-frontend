@@ -19,8 +19,9 @@ function Home () {
         };
     }
     
-    const handlePosting = (body) => {
-        window.ws.send(JSON.stringify({ handle: 1, text: body}));
+    const handlePosting = (data) => {
+        // window.ws.send(JSON.stringify({ handle: 1, text: body}));
+        console.log(data)
     }
 
 
