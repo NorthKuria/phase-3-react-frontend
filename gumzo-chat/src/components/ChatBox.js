@@ -8,7 +8,7 @@ function ChatBox ({messages, users, handlePosting, deleteMessage}) {
     }
 
     function post_message(){
-        fetch(`http://localhost:5000/messages`,{
+        fetch(`https://lit-savannah-30118.herokuapp.com/messages`,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

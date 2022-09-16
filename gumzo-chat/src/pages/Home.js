@@ -9,7 +9,9 @@ function Home () {
     const [connection, setConnection] = useState(false)
 
     if (!connection){
-        window.ws = new WebSocket('ws://localhost:5000/');
+        var scheme = "<%= @scheme %>";
+        var uri = scheme + window.document.location.host + "/";
+        window.ws = new WebSocket(uri);
         setConnection(true)
 
         window.ws.onmessage = function(message) {
@@ -26,7 +28,7 @@ function Home () {
 
 
     function deleteMessage(id){
-        fetch(`http://localhost:5000/messages/${id}`,{
+        fetch(`https://lit-savannah-30118.herokuapp.com/messages/${id}`,{
         method: "DELETE",
         })
         .then(r => r.json())
@@ -38,13 +40,13 @@ function Home () {
 
 
     useEffect(() => {
-        fetch('http://localhost:5000/messages')
+        fetch('https://lit-savannah-30118.herokuapp.com/messages')
         .then(r => r.json())
         .then(data => setMessages(data))
     }, []);
 
     useEffect(() => {
-        fetch('http://localhost:5000/users')
+        fetch('https://lit-savannah-30118.herokuapp.com/users')
         .then(r => r.json())
         .then(data => setUsers(data))
     }, []);  
