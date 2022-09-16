@@ -18,6 +18,7 @@ This app uses websockets to create a chat room where you can communicate with ot
 ### Built With
 * [![React][React.js]][React-url]
 * Sinatra
+* Vercel
 
 ## License
 
