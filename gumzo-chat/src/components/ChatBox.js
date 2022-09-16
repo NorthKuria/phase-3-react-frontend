@@ -10,6 +10,7 @@ function ChatBox ({messages, users, handlePosting, deleteMessage}) {
     }
 
     function post_message(){
+        setBody('')
         fetch(`https://lit-savannah-30118.herokuapp.com/messages`,{
             method: "POST",
             headers: {
@@ -33,12 +34,26 @@ function ChatBox ({messages, users, handlePosting, deleteMessage}) {
                 <p>Chat box</p>
                 <div>
                     {messages.map((message) => (
-                        <p key={message.id} onClick={() => deleteMessage(message.id)}>{message.body}</p>
+                        <div className="flex justify-end p-3 mt-3">
+                        <div className="flex flex-col self-center items-center">
+                            <img src={require('../user_avatar.png')} alt="user avatar" width="40" height="40" />
+                        </div>
+                        <div className="bg-indigo-500 text-white max-w-sm rounded-lg py-4 px-6 inline block">
+                            <p key={message.id} onClick={() => deleteMessage(message.id)}>{message.body}</p>
+                        </div>
+                        </div>
                     ))}
                 </div>
-                <div className="flex">
-                    <input type="text" value={body} onChange={handleChange} className="border-2 grow p-3 text-lg focus:outline-none" placeholder='Enter your message..' />
-                    <button onClick={() => {post_message()}}>
+                <div className="flex pt-2">
+                    <input 
+                        type="text" 
+                        value={body} 
+                        onChange={handleChange} 
+                        className="border-2 grow p-3 text-lg focus:outline-none" 
+                        placeholder='Enter your message..' 
+                        onKeyPress={event => event.key === 'Enter' ? post_message(event) : null}
+                    />
+                    <button className="active:outline-none text-white bg-indigo-600 inline-block" onClick={() => {post_message()}}>
                         <div className="flex justify-center">
                             <FontAwesomeIcon icon={faPaperPlane} style={{width: '1rem'}} />
                             <p className="ml-2">SEND</p>
