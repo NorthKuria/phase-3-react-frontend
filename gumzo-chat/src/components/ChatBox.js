@@ -1,4 +1,6 @@
 import {useState} from 'react'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 function ChatBox ({messages, users, handlePosting, deleteMessage}) {
     const [body, setBody] = useState('')
@@ -35,8 +37,13 @@ function ChatBox ({messages, users, handlePosting, deleteMessage}) {
                     ))}
                 </div>
                 <div className="flex">
-                    <input type="text" value={body} onChange={handleChange} className="border-2 grow" placeholder='Enter your message..' />
-                    <button onClick={() => {post_message()}}>SEND</button>
+                    <input type="text" value={body} onChange={handleChange} className="border-2 grow p-3 text-lg focus:outline-none" placeholder='Enter your message..' />
+                    <button onClick={() => {post_message()}}>
+                        <div className="flex justify-center">
+                            <FontAwesomeIcon icon={faPaperPlane} style={{width: '1rem'}} />
+                            <p className="ml-2">SEND</p>
+                        </div>
+                    </button>
                 </div>
             </div>
         )

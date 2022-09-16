@@ -14,7 +14,7 @@ function Home () {
 
         window.ws.onmessage = function(message) {
             var data = JSON.parse(message.data);
-            console.log(data)
+            // console.log(data)
             setMessages(current => [...current, {id: data.handle, body: data.text}]);
         };
     }
