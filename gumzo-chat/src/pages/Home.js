@@ -9,7 +9,7 @@ function Home () {
     const [connection, setConnection] = useState(false)
 
     if (!connection){
-        window.ws = new WebSocket("ws://lit-savannah-30118.herokuapp.com/");
+        window.ws = new WebSocket("wss://lit-savannah-30118.herokuapp.com/");
         setConnection(true)
 
         window.ws.onmessage = function(message) {
