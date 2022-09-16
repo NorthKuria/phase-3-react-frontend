@@ -20,8 +20,7 @@ function Home () {
     }
     
     const handlePosting = (data) => {
-        // window.ws.send(JSON.stringify({ handle: 1, text: body}));
-        console.log(data)
+        window.ws.send(JSON.stringify({ handle: data.id, text: data.body}));
     }
 
 
