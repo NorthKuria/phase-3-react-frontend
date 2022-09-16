@@ -3,7 +3,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+
 
 
  <h3 align="center">GUMZO CHAT</h3>
@@ -17,7 +17,7 @@ This app uses websockets to create a chat room where you can communicate with ot
 
 ### Built With
 * [![React][React.js]][React-url]
-* [![Sinatra][Sinatra]][Sinatra-url]
+* Sinatra
 
 ## License
 
