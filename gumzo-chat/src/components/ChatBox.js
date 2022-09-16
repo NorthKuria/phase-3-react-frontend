@@ -54,7 +54,7 @@ function ChatBox ({messages, users, handlePosting, deleteMessage}) {
                         onKeyPress={event => event.key === 'Enter' ? post_message(event) : null}
                     />
                     <button className="active:outline-none text-white bg-indigo-600 inline-block" onClick={() => {post_message()}}>
-                        <div className="flex justify-center">
+                        <div className="flex justify-center px-2">
                             <FontAwesomeIcon icon={faPaperPlane} style={{width: '1rem'}} />
                             <p className="ml-2">SEND</p>
                         </div>
